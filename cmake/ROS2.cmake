@@ -41,6 +41,14 @@ if(${cv_bridge_VERSION} GREATER "3.3.0")
   add_definitions(-DUSE_CV_BRIDGE_HPP)
 endif()
 
+if(${rclcpp_VERSION} VERSION_GREATER_EQUAL "28.0.0")
+  add_definitions(-DUSE_MATCHED_EVENTS)
+endif()
+
+if(${image_transport_VERSION} VERSION_GREATER_EQUAL "6.3.0")
+  add_definitions(-DIMAGE_TRANSPORT_USE_QOS)
+endif()
+
 ament_auto_find_build_dependencies(REQUIRED ${ROS2_DEPENDENCIES})
 
 #
