@@ -57,8 +57,12 @@ bool FrequencyCamROS::initialize()
   imageMaker_.setUseLogFrequency(useLogFrequency_);
   overlayEvents_ = declare_parameter<bool>("overlay_events", false);
   imageMaker_.setOverlayEvents(overlayEvents_);
-
-  rmw_qos_profile_t qosProf = rmw_qos_profile_default;
+#ifdef IMAGE_TRANSPORT_USE_QOS
+  const rclcpp::QoS qosProf(
+    rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_default), rmw_qos_profile_default);
+#else
+  const auto qosProf = rmw_qos_profile_default;
+#endif
   imagePub_ = image_transport::create_publisher(this, "~/image_raw", qosProf);
   debugX_ = static_cast<uint16_t>(declare_parameter<int>("debug_x", 320));
   debugY_ = static_cast<uint16_t>(declare_parameter<int>("debug_y", 240));
