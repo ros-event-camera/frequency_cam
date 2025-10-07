@@ -49,6 +49,10 @@ if(${image_transport_VERSION} VERSION_GREATER_EQUAL "6.3.0")
   add_definitions(-DIMAGE_TRANSPORT_USE_QOS)
 endif()
 
+if(${image_transport_VERSION} VERSION_GREATER_EQUAL "6.4.0")
+  add_definitions(-DIMAGE_TRANSPORT_USE_NODEINTERFACE)
+endif()
+
 ament_auto_find_build_dependencies(REQUIRED ${ROS2_DEPENDENCIES})
 
 #

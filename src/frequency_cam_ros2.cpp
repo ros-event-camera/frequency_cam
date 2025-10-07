@@ -63,7 +63,13 @@ bool FrequencyCamROS::initialize()
 #else
   const auto qosProf = rmw_qos_profile_default;
 #endif
-  imagePub_ = image_transport::create_publisher(this, "~/image_raw", qosProf);
+  imagePub_ = image_transport::create_publisher(
+#ifdef IMAGE_TRANSPORT_USE_NODEINTERFACE
+    *this,
+#else
+    this,
+#endif
+    "~/image_raw", qosProf);
   debugX_ = static_cast<uint16_t>(declare_parameter<int>("debug_x", 320));
   debugY_ = static_cast<uint16_t>(declare_parameter<int>("debug_y", 240));
   imageMaker_.setDebugX(debugX_);
