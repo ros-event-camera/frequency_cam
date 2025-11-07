@@ -44,7 +44,7 @@ public:
     lastEventTime_ = e.t;
     eventCount_++;
   }
-  void eventExtTrigger(uint64_t, uint8_t, uint8_t) override {}
+  bool eventExtTrigger(uint64_t, uint8_t, uint8_t) override { return (true); }
   void finished() override {}
   void rawData(const char *, size_t) override {}
   // ------------- end of inherited from EventProcessor
